@@ -1,0 +1,182 @@
+@use 'variables' as vars;
+
+// Import Angular Material themes
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+// Apply theme variables to the body
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Global reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+/* Common styles */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.card {
+  background-color: var(--card-background);
+  border-radius: vars.$border-radius-md;
+  box-shadow: 0 2px 8px var(--shadow-color);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: vars.$spacing-md;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--text-color);
+}
+
+p {
+  margin-bottom: vars.$spacing-md;
+  line-height: 1.5;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  
+  &:hover {
+    color: var(--primary-color-dark);
+    text-decoration: underline;
+  }
+}
+
+/* Buttons */
+button {
+  cursor: pointer;
+  font-family: inherit;
+  
+  &:focus {
+    outline: none;
+  }
+}
+
+/* Angular Material Customization */
+.mat-toolbar {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.mat-card {
+  background-color: var(--card-background);
+  color: var(--text-color);
+}
+
+.mat-form-field {
+  .mat-form-field-label {
+    color: var(--text-color-secondary);
+  }
+  
+  .mat-form-field-underline {
+    background-color: var(--border-color);
+  }
+}
+
+/* Dark Theme Adjustments for Material */
+.dark-theme {
+  .mat-slide-toggle.mat-checked {
+    .mat-slide-toggle-bar {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+    
+    .mat-slide-toggle-thumb {
+      background-color: white;
+    }
+  }
+  
+  .mat-toolbar {
+    background-color: var(--primary-color);
+  }
+}
+
+/* Utility classes */
+.text-center {
+  text-align: center;
+}
+
+.text-primary {
+  color: var(--primary-color);
+}
+
+.text-accent {
+  color: var(--accent-color);
+}
+
+.text-success {
+  color: var(--success-color);
+}
+
+.text-error {
+  color: var(--error-color);
+}
+
+.text-warning {
+  color: var(--warning-color);
+}
+
+.mb-1 {
+  margin-bottom: vars.$spacing-xs;
+}
+
+.mb-2 {
+  margin-bottom: vars.$spacing-sm;
+}
+
+.mb-3 {
+  margin-bottom: vars.$spacing-md;
+}
+
+.mb-4 {
+  margin-bottom: vars.$spacing-lg;
+}
+
+.mt-1 {
+  margin-top: vars.$spacing-xs;
+}
+
+.mt-2 {
+  margin-top: vars.$spacing-sm;
+}
+
+.mt-3 {
+  margin-top: vars.$spacing-md;
+}
+
+.mt-4 {
+  margin-top: vars.$spacing-lg;
+}
+
+/* Responsive utilities */
+@media (max-width: vars.$breakpoint-md) {
+  .hide-sm {
+    display: none;
+  }
+}
+
+@media (max-width: vars.$breakpoint-lg) {
+  .hide-md {
+    display: none;
+  }
+} 

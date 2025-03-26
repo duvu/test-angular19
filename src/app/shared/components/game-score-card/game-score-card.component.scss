@@ -1,0 +1,298 @@
+@use '../../../../styles/variables' as vars;
+
+// Variables
+$primary-color: var(--primary-color);
+$accent-color: var(--accent-color);
+$live-color: var(--live-color);
+$completed-color: var(--completed-color);
+$scheduled-color: var(--scheduled-color);
+$border-radius: var(--border-radius);
+$transition-time: 0.3s;
+
+.game-card-container {
+  margin: 16px;
+  transition: transform $transition-time cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+  
+  &:focus-within {
+    transform: translateY(-5px);
+    outline: none;
+  }
+}
+
+.game-card {
+  cursor: pointer;
+  height: 100%;
+  transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease !important;
+  border-radius: 8px;
+  overflow: hidden;
+  
+  &:hover {
+    transform: translateY(-5px);
+    background-color: var(--card-hover-background) !important;
+  }
+  
+  mat-card-header {
+    .game-header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      
+      .game-date {
+        color: var(--text-color-secondary);
+      }
+    }
+  }
+  
+  mat-card-content {
+    .teams-container {
+      margin: 16px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+
+      .team-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        
+        .team-info {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          flex: 1;
+          
+          .team-logo {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            border-radius: 50%;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            
+            &.team1 {
+              border: 3px solid var(--primary-color);
+            }
+            
+            &.team2 {
+              border: 3px solid var(--accent-color);
+            }
+          }
+          
+          .team-name {
+            font-weight: 500;
+            color: var(--text-color);
+            max-width: 150px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+        
+        .team-score {
+          font-size: 28px;
+          font-weight: 700;
+          min-width: 40px;
+          text-align: center;
+          color: var(--text-color);
+          
+          &.winner {
+            color: var(--primary-color);
+          }
+        }
+      }
+    }
+  }
+  
+  mat-card-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px 16px;
+    
+    .venue {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--text-color-secondary);
+      
+      mat-icon {
+        font-size: 16px;
+        height: 16px;
+        width: 16px;
+      }
+    }
+    
+    .details-button {
+      position: relative;
+      overflow: hidden;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.1);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      
+      &:hover::after {
+        opacity: 1;
+      }
+      
+      mat-icon {
+        margin-left: 4px;
+        transition: transform 0.3s ease;
+      }
+      
+      &:hover mat-icon {
+        transform: translateX(4px);
+      }
+    }
+  }
+}
+
+/* Dark theme overrides */
+:host-context(.dark-theme) {
+  .game-card {
+    background-color: var(--card-background) !important;
+    
+    &:hover {
+      background-color: var(--card-hover-background) !important;
+    }
+    
+    .team-info .team-logo {
+      box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
+    }
+    
+    .team-name, 
+    .team-score {
+      color: var(--text-color);
+    }
+    
+    mat-card-actions {
+      .venue {
+        color: var(--text-color-secondary);
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .game-card {
+    mat-card-content {
+      .teams-container {
+        gap: 16px;
+        
+        .team-row {
+          .team-info {
+            .team-logo {
+              width: 40px;
+              height: 40px;
+            }
+          }
+          
+          .team-score {
+            font-size: 24px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media (max-width: vars.$breakpoint-md) {
+  .game-card {
+    .game-content {
+      padding: 16px 12px;
+      
+      .teams-container {
+        gap: 16px;
+        
+        .team-row {
+          .team-info {
+            .team-logo {
+              width: 40px;
+              height: 40px;
+            }
+            
+            .team-name {
+              font-size: 16px;
+            }
+          }
+          
+          .team-score {
+            font-size: 24px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: vars.$breakpoint-sm) {
+  .team-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .team {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+
+  .team-1 {
+    order: 1;
+  }
+
+  .score-container {
+    width: 100%;
+    order: 2;
+    margin: 16px 0;
+  }
+
+  .team-2 {
+    order: 3;
+  }
+}
+
+// Extra small devices
+@media (max-width: 400px) {
+  .game-card-container {
+    margin: 8px;
+  }
+
+  .team-logo {
+    width: 40px;
+    height: 40px;
+  }
+
+  .team-name {
+    font-size: 14px;
+  }
+
+  .score {
+    font-size: 24px;
+  }
+}
+

@@ -1,0 +1,335 @@
+@use '../../../../styles/variables' as vars;
+
+:host {
+  display: block;
+}
+
+// Dialog header customization
+h2.mat-dialog-title {
+  mat-icon {
+    color: var(--accent-color);
+    margin-right: 8px;
+  }
+}
+
+.game-info {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  .game-date {
+    color: var(--text-color-secondary);
+    font-weight: 500;
+  }
+}
+
+.game-score-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding: 20px;
+  background-color: rgba(var(--primary-color-rgb), 0.05);
+  border-radius: var(--border-radius);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+  }
+}
+
+.team-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  
+  &.team1 {
+    text-align: right;
+  }
+  
+  &.team2 {
+    text-align: left;
+  }
+}
+
+.team-logo {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  margin-bottom: 8px;
+  border-radius: 50%;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 4px;
+  border: 3px solid transparent;
+  
+  .team1 & {
+    border-color: var(--primary-color);
+  }
+  
+  .team2 & {
+    border-color: var(--accent-color);
+  }
+}
+
+.team-name {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.team-details {
+  font-size: 0.9rem;
+  color: var(--text-color-secondary);
+}
+
+.score-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 24px;
+  position: relative;
+  
+  &::before {
+    content: 'VS';
+    position: absolute;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-color-secondary);
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0.7;
+  }
+}
+
+.score {
+  font-size: 2.5rem;
+  font-weight: 700;
+  min-width: 48px;
+  text-align: center;
+  
+  &.winning-score {
+    color: var(--success-color);
+  }
+  
+  &.live-score {
+    color: var(--live-color);
+    animation: pulse 2s infinite;
+  }
+}
+
+.score-divider {
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+// Section headers styling
+h3 {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 24px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--divider-color);
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background-color: var(--accent-color);
+    border-radius: 3px;
+  }
+}
+
+.game-details-section {
+  margin-bottom: 24px;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.detail-item {
+  padding: 16px;
+  background-color: rgba(var(--primary-color-rgb), 0.03);
+  border-radius: var(--border-radius);
+  border-left: 3px solid var(--primary-color);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.detail-label {
+  font-size: 0.9rem;
+  color: var(--text-color-secondary);
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.detail-value {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.game-stats-section {
+  margin-top: 24px;
+}
+
+.stat-item {
+  margin-bottom: 24px;
+  padding: 16px;
+  background-color: rgba(var(--primary-color-rgb), 0.02);
+  border-radius: var(--border-radius);
+  
+  &:nth-child(even) {
+    background-color: rgba(var(--accent-color-rgb), 0.02);
+  }
+}
+
+.stat-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--text-color-secondary);
+  font-weight: 500;
+}
+
+.stat-values {
+  display: flex;
+  gap: 24px;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.stat-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  
+  .team1-bar, .team2-bar {
+    border-radius: 4px;
+    height: 8px !important;
+  }
+  
+  .team1-bar {
+    margin-bottom: 4px;
+  }
+}
+
+// Dialog actions styling
+.mat-dialog-actions {
+  padding-top: 16px !important;
+  border-top: 1px solid var(--divider-color);
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+// Dark theme support
+:host-context(.dark-theme) {
+  .game-score-section {
+    background-color: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  }
+  
+  .team-logo {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .detail-item {
+    background-color: rgba(255, 255, 255, 0.05);
+    
+    &:hover {
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+    }
+  }
+  
+  .stat-item {
+    background-color: rgba(255, 255, 255, 0.03);
+    
+    &:nth-child(even) {
+      background-color: rgba(255, 255, 255, 0.02);
+    }
+  }
+}
+
+// Media queries for responsive design
+@media (max-width: 768px) {
+  .game-score-section {
+    flex-direction: column;
+    gap: 24px;
+    padding: 16px 12px;
+    
+    &::before {
+      height: 3px;
+    }
+  }
+  
+  .team-container {
+    width: 100%;
+    
+    &.team1, &.team2 {
+      text-align: center;
+    }
+  }
+  
+  .score-container {
+    order: -1;
+    margin: 0 0 16px;
+    width: 100%;
+    justify-content: center;
+    
+    &::before {
+      bottom: -18px;
+    }
+  }
+  
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .stat-values {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-end;
+  }
+}
+
+// Tablet styles
+@media (min-width: 769px) and (max-width: 1024px) {
+  .details-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

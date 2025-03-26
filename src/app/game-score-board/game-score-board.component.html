@@ -1,0 +1,30 @@
+<div class="game-score-board-container">
+  <h1 class="mat-headline-4 page-title">Game Score Board</h1>
+
+  <div *ngIf="isLoading" class="loading-container">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p class="mat-body-1">Loading games...</p>
+  </div>
+
+  <div *ngIf="hasError" class="error-container">
+    <mat-icon color="warn" class="error-icon">error</mat-icon>
+    <p class="mat-body-1">Oops! We couldn't load the games.</p>
+    <button mat-raised-button color="primary" (click)="retryLoading()">Try Again</button>
+  </div>
+
+  <div *ngIf="!isLoading && !hasError" class="game-cards-container">
+    <div *ngIf="games.length === 0" class="no-games-message">
+      <mat-icon>sports_soccer</mat-icon>
+      <p class="mat-body-1">No games available at the moment.</p>
+      <button mat-raised-button color="primary" (click)="retryLoading()">Refresh</button>
+    </div>
+    
+    <app-game-score-card 
+      *ngFor="let game of games; trackBy: trackByGameId" 
+      [game]="game" 
+      class="game-card-item"
+      [ngClass]="{'fade-in': !isLoading}"
+      (gameSelected)="openGameDetails($event)">
+    </app-game-score-card>
+  </div>
+</div>

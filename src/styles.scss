@@ -1,0 +1,460 @@
+/* You can add global styles to this file, and also import other style files */
+
+// Import Angular Material theming
+@use '@angular/material' as mat;
+
+// Include the common styles for Angular Material
+@include mat.core();
+
+// We won't use the complex Material theming system directly
+// Instead we'll use CSS variables that work with both our custom
+// components and Material components
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+:root {
+  // Light theme colors (default)
+  --primary-color: #3f51b5;
+  --primary-color-rgb: 63, 81, 181;
+  --primary-color-light: #7986cb;
+  --primary-color-dark: #303f9f;
+  --accent-color: #ff4081;
+  --accent-color-rgb: 255, 64, 129;
+  --live-color: #ff4081;
+  --completed-color: #43a047;
+  --scheduled-color: #ff9800;
+  --border-radius: 8px;
+  --transition-time: 0.3s;
+  --background-color: #ffffff;
+  --card-background: #ffffff;
+  --card-hover-background: #f5f5f5;
+  --card-header-bg: linear-gradient(to right, rgba(63, 81, 181, 0.05), rgba(63, 81, 181, 0.1));
+  --dialog-header-bg: linear-gradient(to right, rgba(63, 81, 181, 0.1), rgba(63, 81, 181, 0.2));
+  --text-color: rgba(0, 0, 0, 0.87);
+  --text-color-secondary: rgba(0, 0, 0, 0.54);
+  --divider-color: rgba(0, 0, 0, 0.12);
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --hover-shadow-color: rgba(0, 0, 0, 0.2);
+  --text-on-primary: #ffffff;
+  --error-color: #f44336;
+  --success-color: #4caf50;
+  --warn-color: #ff9800;
+  --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  --card-hover-shadow: 0 6px 10px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.1);
+  --button-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  --button-hover-shadow: 0 3px 6px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.12);
+  --toggle-bg-light: #f5f5f5;
+  --toggle-bg-dark: #323232;
+  --toggle-icon-light: #ffb74d;
+  --toggle-icon-dark: #5c6bc0;
+  --toolbar-bg: linear-gradient(135deg, #3f51b5, #3949ab);
+  --toolbar-text: #ffffff;
+  --toolbar-toggle-bg: rgba(255, 255, 255, 0.15);
+  --toolbar-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  --toolbar-border: none;
+  --active-nav-bg: rgba(255, 255, 255, 0.2);
+}
+
+:root.dark-theme {
+  --primary-color: #7986cb;
+  --primary-color-rgb: 121, 134, 203;
+  --primary-color-light: #9fa8da;
+  --primary-color-dark: #5c6bc0;
+  --accent-color: #ff4081;
+  --accent-color-rgb: 255, 64, 129;
+  --live-color: #ff4081;
+  --completed-color: #43a047;
+  --scheduled-color: #ff9800;
+  --background-color: #121212;
+  --card-background: #1e1e1e;
+  --card-hover-background: #2a2a2a;
+  --card-header-bg: linear-gradient(to right, rgba(121, 134, 203, 0.1), rgba(121, 134, 203, 0.15));
+  --dialog-header-bg: linear-gradient(to right, rgba(121, 134, 203, 0.15), rgba(121, 134, 203, 0.25));
+  --text-color: rgba(255, 255, 255, 0.87);
+  --text-color-secondary: rgba(255, 255, 255, 0.6);
+  --divider-color: rgba(255, 255, 255, 0.12);
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --hover-shadow-color: rgba(0, 0, 0, 0.4);
+  --text-on-primary: #ffffff;
+  --error-color: #f44336;
+  --success-color: #4caf50;
+  --warn-color: #ff9800;
+  --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.4);
+  --card-hover-shadow: 0 8px 16px rgba(0, 0, 0, 0.4), 0 4px 8px rgba(0, 0, 0, 0.5);
+  --button-shadow: 0 2px 4px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.3);
+  --button-hover-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 3px 6px rgba(0, 0, 0, 0.2);
+  --toggle-bg-light: #f5f5f5;
+  --toggle-bg-dark: #323232;
+  --toggle-icon-light: #ffb74d;
+  --toggle-icon-dark: #5c6bc0;
+  --toolbar-bg: linear-gradient(135deg, #252836, #1e2130);
+  --toolbar-text: #ffffff;
+  --toolbar-toggle-bg: rgba(0, 0, 0, 0.2);
+  --toolbar-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+  --toolbar-border: 1px solid rgba(255, 255, 255, 0.05);
+  --active-nav-bg: rgba(255, 255, 255, 0.15);
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+// Material Component overrides to respect our CSS variables
+.mat-mdc-card {
+  background-color: var(--card-background) !important;
+  color: var(--text-color) !important;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: var(--card-shadow) !important;
+  border-radius: var(--border-radius) !important;
+  overflow: hidden;
+}
+
+.mat-mdc-card:hover {
+  box-shadow: var(--card-hover-shadow) !important;
+}
+
+// Enhanced Card header styles
+.mat-mdc-card-header {
+  background: var(--card-header-bg) !important;
+  padding: 16px !important;
+  border-bottom: 1px solid var(--divider-color);
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background-color: var(--primary-color);
+  }
+  
+  .mat-mdc-card-title {
+    color: var(--text-color) !important;
+    font-weight: 500 !important;
+    font-size: 18px !important;
+    margin-bottom: 4px !important;
+    letter-spacing: 0.2px;
+  }
+  
+  .mat-mdc-card-subtitle {
+    color: var(--text-color-secondary) !important;
+    font-size: 14px !important;
+  }
+}
+
+// Dialog header styles
+.mat-mdc-dialog-container {
+  --mdc-dialog-container-color: var(--card-background);
+  border-radius: var(--border-radius) !important;
+  overflow: hidden;
+}
+
+.mat-mdc-dialog-surface {
+  color: var(--text-color);
+  border-radius: var(--border-radius) !important;
+  overflow: hidden;
+}
+
+h2.mat-dialog-title,
+.mat-mdc-dialog-title {
+  background: var(--dialog-header-bg) !important;
+  padding: 16px 24px !important;
+  margin: 0 !important;
+  font-size: 20px !important;
+  font-weight: 500 !important;
+  color: var(--text-color) !important;
+  border-bottom: 1px solid var(--divider-color);
+  position: relative;
+  display: flex;
+  align-items: center;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background-color: var(--accent-color);
+  }
+  
+  mat-icon {
+    margin-right: 8px;
+    color: var(--accent-color);
+  }
+}
+
+.mat-mdc-dialog-content {
+  padding: 20px 24px !important;
+  color: var(--text-color) !important;
+}
+
+.mat-mdc-dialog-actions {
+  padding: 12px 24px !important;
+  border-top: 1px solid var(--divider-color);
+  margin-bottom: 0 !important;
+}
+
+// Toolbar styles
+.mat-toolbar.mat-primary {
+  background: var(--toolbar-bg) !important;
+  color: var(--toolbar-text) !important;
+  box-shadow: var(--toolbar-shadow);
+  border-bottom: var(--toolbar-border);
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 999;
+  width: 100% !important;
+  
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+                              rgba(255,255,255,0) 0%, 
+                              rgba(255,255,255,0.2) 50%, 
+                              rgba(255,255,255,0) 100%);
+  }
+}
+
+// Active navigation link styles
+a.active-link {
+  background-color: var(--active-nav-bg) !important;
+  position: relative;
+  overflow: hidden;
+  
+  &:before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 25%;
+    right: 25%;
+    height: 3px;
+    border-radius: 3px 3px 0 0;
+    background-color: currentColor;
+  }
+  
+  mat-icon {
+    color: #fff;
+  }
+}
+
+// Enhanced button styles
+.mat-mdc-button,
+.mat-mdc-raised-button,
+.mat-mdc-outlined-button,
+.mat-mdc-unelevated-button {
+  font-weight: 500 !important;
+  letter-spacing: 0.3px !important;
+  transition: all 0.3s ease !important;
+  box-shadow: var(--button-shadow) !important;
+  border-radius: 24px !important;
+  padding: 0 16px !important;
+  height: 36px !important;
+}
+
+.mat-mdc-button:hover,
+.mat-mdc-raised-button:hover,
+.mat-mdc-outlined-button:hover,
+.mat-mdc-unelevated-button:hover {
+  box-shadow: var(--button-hover-shadow) !important;
+  transform: translateY(-1px) !important;
+}
+
+.mat-mdc-button.mat-primary,
+.mat-mdc-raised-button.mat-primary,
+.mat-mdc-outlined-button.mat-primary,
+.mat-mdc-unelevated-button.mat-primary {
+  background-color: var(--primary-color) !important;
+  color: var(--text-on-primary) !important;
+}
+
+.mat-mdc-button.mat-accent,
+.mat-mdc-raised-button.mat-accent,
+.mat-mdc-outlined-button.mat-accent,
+.mat-mdc-unelevated-button.mat-accent {
+  background-color: var(--accent-color) !important;
+  color: var(--text-on-primary) !important;
+}
+
+// Enhanced styles for theme toggle
+.theme-toggle-container {
+  display: flex;
+  align-items: center;
+  margin: 0 8px;
+  padding: 4px 12px;
+  border-radius: 24px;
+  background-color: var(--toolbar-toggle-bg);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  pointer-events: auto; /* Ensure clicks pass through */
+}
+
+.theme-toggle-label {
+  margin-right: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-on-primary);
+  display: flex;
+  align-items: center;
+  pointer-events: auto; /* Ensure clicks pass through */
+}
+
+.theme-toggle-label mat-icon {
+  margin-right: 4px;
+  font-size: 18px;
+  height: 18px;
+  width: 18px;
+}
+
+// Custom styling for slide toggle
+.mat-mdc-slide-toggle {
+  --mdc-switch-selected-handle-color: var(--toggle-icon-dark);
+  --mdc-switch-selected-track-color: var(--toggle-bg-dark);
+  --mdc-switch-unselected-handle-color: var(--toggle-icon-light);
+  --mdc-switch-unselected-track-color: var(--toggle-bg-light);
+  --mdc-switch-selected-focus-state-layer-color: var(--primary-color);
+  --mdc-switch-unselected-focus-state-layer-color: var(--primary-color);
+  
+  // Make the toggle larger for better visibility
+  transform: scale(1.1);
+  margin: 0 8px;
+  pointer-events: auto; /* Ensure clicks pass through */
+  z-index: 10; /* Ensure it's above other elements */
+}
+
+/* Ensure the toggle's thumb and track are clickable */
+.mdc-switch__track,
+.mdc-switch__handle,
+.mdc-switch__handle-track {
+  pointer-events: auto !important;
+}
+
+.mat-mdc-slide-toggle .mdc-switch__icons {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.mat-mdc-slide-toggle.mat-mdc-slide-toggle-checked .mdc-switch__handle::after {
+  background-color: var(--toggle-icon-dark) !important;
+}
+
+.mat-mdc-slide-toggle:not(.mat-mdc-slide-toggle-checked) .mdc-switch__handle::after {
+  background-color: var(--toggle-icon-light) !important;
+}
+
+.mat-mdc-button-base {
+  color: var(--text-color);
+}
+
+// Add stronger selector for dark theme overrides
+body.dark-theme .mat-mdc-card,
+.dark-theme .mat-mdc-card {
+  background-color: var(--card-background) !important;
+  box-shadow: var(--card-shadow) !important;
+}
+
+body.dark-theme .mat-mdc-card:hover,
+.dark-theme .mat-mdc-card:hover {
+  box-shadow: var(--card-hover-shadow) !important;
+}
+
+/* Global responsive styles */
+@media (max-width: 768px) {
+  /* Tighten up spacing on mobile */
+  body {
+    font-size: 14px;
+  }
+  
+  h1 {
+    font-size: 24px !important;
+  }
+  
+  h2 {
+    font-size: 20px !important;
+  }
+  
+  h3 {
+    font-size: 18px !important;
+  }
+  
+  /* Ensure toolbar fills width on mobile */
+  .mat-toolbar.mat-primary {
+    width: 100% !important;
+    padding: 0 8px !important;
+  }
+  
+  /* Adjust dialog sizing */
+  .mat-mdc-dialog-container {
+    max-width: 95vw !important;
+    margin: 0 auto;
+  }
+  
+  .mat-mdc-dialog-content {
+    max-height: calc(100vh - 120px) !important;
+    padding: 16px !important;
+  }
+  
+  h2.mat-dialog-title,
+  .mat-mdc-dialog-title {
+    padding: 12px 16px !important;
+    font-size: 18px !important;
+  }
+  
+  .mat-mdc-dialog-actions {
+    padding: 8px 16px !important;
+  }
+  
+  /* Adjust button sizes */
+  .mat-mdc-button,
+  .mat-mdc-raised-button,
+  .mat-mdc-outlined-button,
+  .mat-mdc-unelevated-button {
+    font-size: 13px !important;
+    padding: 0 12px !important;
+    height: 32px !important;
+  }
+  
+  /* Adjust card padding */
+  .mat-mdc-card-content {
+    padding: 12px !important;
+  }
+  
+  .mat-mdc-card-header {
+    padding: 12px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Further adjustments for very small screens */
+  body {
+    font-size: 13px;
+  }
+  
+  /* Make cards take full width */
+  .mat-mdc-card {
+    width: 100% !important;
+  }
+  
+  /* Reduce dialog title size */
+  h2.mat-dialog-title,
+  .mat-mdc-dialog-title {
+    font-size: 16px !important;
+  }
+  
+  /* Reduce padding */
+  .mat-mdc-card-content,
+  .mat-mdc-dialog-content {
+    padding: 10px !important;
+  }
+}

@@ -1,0 +1,152 @@
+@use '../../styles/variables' as vars;
+
+.about-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 20px auto;
+  border-radius: vars.$border-radius-md;
+  overflow: hidden;
+  
+  .about-content {
+    padding: 24px;
+    
+    .about-title {
+      margin-bottom: 24px;
+      text-align: center;
+      font-weight: 500;
+      position: relative;
+      
+      &:after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background-color: var(--primary-color);
+      }
+    }
+    
+    .profile-section {
+      margin-bottom: 32px;
+      text-align: center;
+      
+      .intro-text {
+        margin-bottom: 24px;
+        text-align: justify;
+        line-height: 1.6;
+      }
+      
+      .upwork-link {
+        margin-top: 24px;
+        
+        a[mat-raised-button] {
+          padding: 0 24px;
+          height: 44px;
+          line-height: 44px;
+          font-size: 16px;
+        }
+      }
+    }
+    
+    mat-divider {
+      margin: 32px 0;
+    }
+    
+    .mat-headline-6 {
+      color: var(--primary-color);
+      margin: 24px 0 16px;
+      font-weight: 500;
+    }
+    
+    .services-section, .achievements-section {
+      margin-bottom: 32px;
+      
+      mat-list {
+        padding-top: 8px;
+        
+        mat-list-item {
+          height: auto;
+          margin-bottom: 8px;
+          padding: 8px 0;
+          
+          &:not(:last-child) {
+            border-bottom: 1px solid var(--divider-color);
+          }
+          
+          ::ng-deep .mdc-list-item__content {
+            padding: 12px 0;
+          }
+        }
+      }
+    }
+    
+    .closing-section {
+      padding: 8px 0;
+      
+      .mat-body-1 {
+        line-height: 1.6;
+        margin-bottom: 16px;
+      }
+      
+      .contact-cta {
+        text-align: center;
+        color: var(--primary-color);
+        font-weight: 500;
+        margin-top: 24px;
+        
+        mat-icon {
+          vertical-align: middle;
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: vars.$breakpoint-md) {
+  .about-container {
+    margin: 16px auto;
+    
+    .about-content {
+      padding: 20px 16px;
+      
+      .about-title {
+        &:after {
+          width: 50px;
+        }
+      }
+      
+      mat-divider {
+        margin: 24px 0;
+      }
+      
+      .services-section, .achievements-section {
+        margin-bottom: 24px;
+      }
+    }
+  }
+}
+
+@media (max-width: vars.$breakpoint-sm) {
+  .about-container {
+    margin: 12px auto;
+    
+    .about-content {
+      padding: 16px 12px;
+      
+      .profile-section {
+        .upwork-link {
+          a[mat-raised-button] {
+            width: 100%;
+          }
+        }
+      }
+      
+      mat-divider {
+        margin: 20px 0;
+      }
+    }
+  }
+} 

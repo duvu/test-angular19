@@ -1,0 +1,42 @@
+<div class="app-container">
+  <mat-toolbar color="primary" class="header-toolbar" [class.scrolled]="isScrolled">
+    <span class="app-title">Game Score Board</span>
+    <span class="spacer"></span>
+    
+    <div class="nav-links">
+      <a mat-button routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+        <mat-icon>home</mat-icon>
+        <span>Home</span>
+      </a>
+      <a mat-button routerLink="/game-score-board" routerLinkActive="active-link">
+        <mat-icon>sports_score</mat-icon>
+        <span>Games</span>
+      </a>
+      <a mat-button routerLink="/about" routerLinkActive="active-link">
+        <mat-icon>info</mat-icon>
+        <span>About</span>
+      </a>
+    </div>
+    
+    <div class="theme-toggle-container">
+      <div class="theme-toggle-label" (click)="toggleTheme()">
+        <mat-icon>{{ isDarkMode ? 'dark_mode' : 'light_mode' }}</mat-icon>
+        <span>{{ isDarkMode ? 'Dark' : 'Light' }}</span>
+      </div>
+      <mat-slide-toggle
+        class="theme-toggle"
+        [checked]="isDarkMode"
+        (change)="toggleTheme()"
+        color="accent">
+      </mat-slide-toggle>
+    </div>
+  </mat-toolbar>
+
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2025 by Vu.D. All rights reserved.</p>
+  </footer>
+</div>

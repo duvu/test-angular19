@@ -1,0 +1,64 @@
+<mat-card class="about-container">
+  <mat-card-content class="about-content">
+    <h1 class="mat-headline-4 about-title">About Me</h1>
+    
+    <div class="profile-section">
+      <p class="mat-body-1 intro-text">
+        I am a Senior Software Engineer & Solution Architect with 20+ years of experience in software development, system architecture, and technical consulting. Over the years, I have worked with companies across FinTech, AI, and data analytics, helping them build scalable, efficient, and high-performance systems.
+      </p>
+      
+      <div class="upwork-link">
+        <a [href]="upworkLink" target="_blank" rel="noopener noreferrer" mat-raised-button color="primary">
+          Hire me on Upwork
+        </a>
+      </div>
+    </div>
+    
+    <mat-divider></mat-divider>
+    
+    <div class="services-section">
+      <h2 class="mat-headline-6">What I Offer:</h2>
+      <mat-list>
+        <mat-list-item *ngFor="let service of [
+          'Custom Software Development – Building robust applications with Java, Python, Node.js.',
+          'Cloud & DevOps Solutions – Expertise in AWS, Docker, Kubernetes, CI/CD pipelines.',
+          'Microservices & Scalable Systems – Designing high-performance backend solutions.',
+          'AI & Data Analytics – Integrating machine learning (Langchain, AI Agents, NLP, PhoBERT) into real-world applications.',
+          'Financial & Trading Systems – Experience with real-time stock trading platforms, risk management, and backtesting.',
+          'Consulting & Tech Leadership – Helping teams adopt best practices in software engineering & agile development.'
+        ]">
+          <mat-icon matListItemIcon color="primary">check_circle</mat-icon>
+          <div matListItemTitle>{{ service }}</div>
+        </mat-list-item>
+      </mat-list>
+    </div>
+    
+    <mat-divider></mat-divider>
+    
+    <div class="achievements-section">
+      <h2 class="mat-headline-6">My Achievements:</h2>
+      <mat-list>
+        <mat-list-item *ngFor="let achievement of [
+          'Optimized financial trading systems – Reduced order execution time from 500ms to 100ms, improving efficiency by 5x.',
+          'Developed an AI-powered financial news analysis system (X51 Simple Trade).',
+          'Led a remote team of 4 engineers to build a taxi dispatching system in New York, scaling it from 100 to 1000+ drivers.',
+          'Designed risk management software for banks, ensuring compliance with Basel II standards.'
+        ]">
+          <mat-icon matListItemIcon color="accent">verified</mat-icon>
+          <div matListItemTitle>{{ achievement }}</div>
+        </mat-list-item>
+      </mat-list>
+    </div>
+    
+    <mat-divider></mat-divider>
+    
+    <div class="closing-section">
+      <p class="mat-body-1">
+        I am open to freelance, consulting, and remote opportunities where I can help businesses solve complex technical challenges, optimize system performance, and drive innovation.
+      </p>
+      <p class="mat-subtitle-1 contact-cta">
+        <mat-icon inline="true">email</mat-icon> Let's connect and discuss how I can help with your next project!
+      </p>
+    </div>
+  </mat-card-content>
+</mat-card> 

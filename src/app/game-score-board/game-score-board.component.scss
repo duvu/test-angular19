@@ -1,0 +1,111 @@
+@use '../../styles/variables' as vars;
+
+.game-score-board-container {
+  width: 100%;
+  margin: 0 auto;
+  
+  .page-title {
+    text-align: center;
+    margin: 24px 0;
+    color: var(--text-color);
+    font-weight: 500;
+  }
+  
+  .loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 40px 0;
+    
+    p {
+      color: var(--text-color-secondary);
+      margin-top: 20px;
+    }
+  }
+  
+  .error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 40px 0;
+    text-align: center;
+    
+    .error-icon {
+      font-size: 48px;
+      height: 48px;
+      width: 48px;
+      margin-bottom: 16px;
+    }
+    
+    p {
+      color: var(--error-color);
+      margin-bottom: 24px;
+    }
+  }
+  
+  .game-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+    padding: 0 16px;
+    
+    @media (min-width: 1280px) {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .no-games-message {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 40px 0;
+      color: var(--text-color-secondary);
+      
+      mat-icon {
+        font-size: 48px;
+        height: 48px;
+        width: 48px;
+        margin-bottom: 16px;
+      }
+      
+      button {
+        margin-top: 16px;
+      }
+    }
+    
+    .game-card-item {
+      &.fade-in {
+        animation: fadeIn 0.5s ease-in;
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .game-score-board-container {
+    .game-cards-container {
+      grid-template-columns: 1fr;
+      gap: 16px;
+      padding: 0 12px;
+    }
+  }
+}
+
+// For tablets
+@media (min-width: 769px) and (max-width: 1024px) {
+  .game-score-board-container {
+    .game-cards-container {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+  }
+}

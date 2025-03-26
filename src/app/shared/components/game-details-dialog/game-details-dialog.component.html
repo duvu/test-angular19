@@ -1,0 +1,259 @@
+<h2 mat-dialog-title>
+  <mat-icon>sports_soccer</mat-icon>
+  Game Details
+</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="game-info">
+    <mat-chip-set>
+      <mat-chip [color]="game.status === 'live' ? 'warn' : game.status === 'completed' ? 'primary' : 'accent'" selected>
+        {{ game.status === 'live' ? 'LIVE' : game.status === 'completed' ? 'COMPLETED' : 'SCHEDULED' }}
+      </mat-chip>
+    </mat-chip-set>
+    <span class="game-date">{{ game.date | date:'MMM d, y • h:mm a' }}</span>
+  </div>
+
+  <div class="game-score-section">
+    <div class="team-container team1">
+      <img 
+        [src]="getTeam1LogoUrl()" 
+        [alt]="game.team1.name + ' logo'" 
+        class="team-logo"
+        (error)="handleImageError($event)"
+      >
+      <h3 class="team-name">{{ game.team1.name }}</h3>
+      <p class="team-details" *ngIf="game.status !== 'scheduled'">
+        {{ game.stats.shots.team1 }} shots ({{ game.stats.shotsOnTarget.team1 }} on target)
+      </p>
+    </div>
+    
+    <div class="score-container">
+      <div class="score" [ngClass]="{
+        'winning-score': game.team1.score > game.team2.score && game.status === 'completed',
+        'live-score': game.status === 'live'
+      }">{{ game.team1.score }}</div>
+      <div class="score-divider">-</div>
+      <div class="score" [ngClass]="{
+        'winning-score': game.team2.score > game.team1.score && game.status === 'completed',
+        'live-score': game.status === 'live'
+      }">{{ game.team2.score }}</div>
+    </div>
+    
+    <div class="team-container team2">
+      <img 
+        [src]="getTeam2LogoUrl()" 
+        [alt]="game.team2.name + ' logo'" 
+        class="team-logo"
+        (error)="handleImageError($event)"
+      >
+      <h3 class="team-name">{{ game.team2.name }}</h3>
+      <p class="team-details" *ngIf="game.status !== 'scheduled'">
+        {{ game.stats.shots.team2 }} shots ({{ game.stats.shotsOnTarget.team2 }} on target)
+      </p>
+    </div>
+  </div>
+  
+  <div class="game-details-section">
+    <h3>Match Information</h3>
+    
+    <div class="details-grid">
+      <div class="detail-item">
+        <div class="detail-label">Venue</div>
+        <div class="detail-value">{{ game.venue }}</div>
+      </div>
+      
+      <div class="detail-item">
+        <div class="detail-label">Status</div>
+        <div class="detail-value">
+          <ng-container *ngIf="game.status === 'live'">Live - {{ game.period }} ({{ game.time }})</ng-container>
+          <ng-container *ngIf="game.status === 'completed'">Completed</ng-container>
+          <ng-container *ngIf="game.status === 'scheduled'">Scheduled</ng-container>
+        </div>
+      </div>
+      
+      <div class="detail-item">
+        <div class="detail-label">Date</div>
+        <div class="detail-value">{{ game.date | date:'EEEE, MMMM d, y' }}</div>
+      </div>
+      
+      <div class="detail-item">
+        <div class="detail-label">Time</div>
+        <div class="detail-value">{{ game.date | date:'h:mm a' }}</div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="game-stats-section" *ngIf="game.status !== 'scheduled'">
+    <h3>Match Statistics</h3>
+    
+    <div class="stat-item">
+      <div class="stat-header">
+        <div class="stat-label">Possession</div>
+        <div class="stat-values">
+          <div class="team1-value">{{ getTeam1Possession() }}%</div>
+          <div class="team2-value">{{ getTeam2Possession() }}%</div>
+        </div>
+      </div>
+      <div class="stat-bars">
+        <mat-progress-bar 
+          class="team1-bar" 
+          color="primary" 
+          mode="determinate" 
+          [value]="getTeam1Possession()">
+        </mat-progress-bar>
+        <mat-progress-bar 
+          class="team2-bar" 
+          color="accent" 
+          mode="determinate" 
+          [value]="getTeam2Possession()">
+        </mat-progress-bar>
+      </div>
+    </div>
+    
+    <div class="stat-item">
+      <div class="stat-header">
+        <div class="stat-label">Shots</div>
+        <div class="stat-values">
+          <div class="team1-value">{{ game.stats.shots.team1 }}</div>
+          <div class="team2-value">{{ game.stats.shots.team2 }}</div>
+        </div>
+      </div>
+      <div class="stat-bars">
+        <mat-progress-bar 
+          class="team1-bar" 
+          color="primary" 
+          mode="determinate" 
+          [value]="(game.stats.shots.team1 / (game.stats.shots.team1 + game.stats.shots.team2)) * 100">
+        </mat-progress-bar>
+        <mat-progress-bar 
+          class="team2-bar" 
+          color="accent" 
+          mode="determinate" 
+          [value]="(game.stats.shots.team2 / (game.stats.shots.team1 + game.stats.shots.team2)) * 100">
+        </mat-progress-bar>
+      </div>
+    </div>
+    
+    <div class="stat-item">
+      <div class="stat-header">
+        <div class="stat-label">Shots on Target</div>
+        <div class="stat-values">
+          <div class="team1-value">{{ game.stats.shotsOnTarget.team1 }}</div>
+          <div class="team2-value">{{ game.stats.shotsOnTarget.team2 }}</div>
+        </div>
+      </div>
+      <div class="stat-bars">
+        <mat-progress-bar 
+          class="team1-bar" 
+          color="primary" 
+          mode="determinate" 
+          [value]="(game.stats.shotsOnTarget.team1 / (game.stats.shotsOnTarget.team1 + game.stats.shotsOnTarget.team2)) * 100">
+        </mat-progress-bar>
+        <mat-progress-bar 
+          class="team2-bar" 
+          color="accent" 
+          mode="determinate" 
+          [value]="(game.stats.shotsOnTarget.team2 / (game.stats.shotsOnTarget.team1 + game.stats.shotsOnTarget.team2)) * 100">
+        </mat-progress-bar>
+      </div>
+    </div>
+    
+    <div class="stat-item">
+      <div class="stat-header">
+        <div class="stat-label">Corners</div>
+        <div class="stat-values">
+          <div class="team1-value">{{ game.stats.corners.team1 }}</div>
+          <div class="team2-value">{{ game.stats.corners.team2 }}</div>
+        </div>
+      </div>
+      <div class="stat-bars">
+        <mat-progress-bar 
+          class="team1-bar" 
+          color="primary" 
+          mode="determinate" 
+          [value]="(game.stats.corners.team1 / (game.stats.corners.team1 + game.stats.corners.team2)) * 100">
+        </mat-progress-bar>
+        <mat-progress-bar 
+          class="team2-bar" 
+          color="accent" 
+          mode="determinate" 
+          [value]="(game.stats.corners.team2 / (game.stats.corners.team1 + game.stats.corners.team2)) * 100">
+        </mat-progress-bar>
+      </div>
+    </div>
+    
+    <div class="stat-item">
+      <div class="stat-header">
+        <div class="stat-label">Fouls</div>
+        <div class="stat-values">
+          <div class="team1-value">{{ game.stats.fouls.team1 }}</div>
+          <div class="team2-value">{{ game.stats.fouls.team2 }}</div>
+        </div>
+      </div>
+      <div class="stat-bars">
+        <mat-progress-bar 
+          class="team1-bar" 
+          color="primary" 
+          mode="determinate" 
+          [value]="(game.stats.fouls.team1 / (game.stats.fouls.team1 + game.stats.fouls.team2)) * 100">
+        </mat-progress-bar>
+        <mat-progress-bar 
+          class="team2-bar" 
+          color="accent" 
+          mode="determinate" 
+          [value]="(game.stats.fouls.team2 / (game.stats.fouls.team1 + game.stats.fouls.team2)) * 100">
+        </mat-progress-bar>
+      </div>
+    </div>
+    
+    <div class="stat-item">
+      <div class="stat-header">
+        <div class="stat-label">Yellow Cards</div>
+        <div class="stat-values">
+          <div class="team1-value">{{ game.stats.yellowCards.team1 }}</div>
+          <div class="team2-value">{{ game.stats.yellowCards.team2 }}</div>
+        </div>
+      </div>
+      <div class="stat-bars">
+        <mat-progress-bar 
+          class="team1-bar" 
+          color="primary" 
+          mode="determinate" 
+          [value]="(game.stats.yellowCards.team1 / (game.stats.yellowCards.team1 + game.stats.yellowCards.team2 || 1)) * 100">
+        </mat-progress-bar>
+        <mat-progress-bar 
+          class="team2-bar" 
+          color="accent" 
+          mode="determinate" 
+          [value]="(game.stats.yellowCards.team2 / (game.stats.yellowCards.team1 + game.stats.yellowCards.team2 || 1)) * 100">
+        </mat-progress-bar>
+      </div>
+    </div>
+    
+    <div class="stat-item">
+      <div class="stat-header">
+        <div class="stat-label">Red Cards</div>
+        <div class="stat-values">
+          <div class="team1-value">{{ game.stats.redCards.team1 }}</div>
+          <div class="team2-value">{{ game.stats.redCards.team2 }}</div>
+        </div>
+      </div>
+      <div class="stat-bars">
+        <mat-progress-bar 
+          class="team1-bar" 
+          color="primary" 
+          mode="determinate" 
+          [value]="(game.stats.redCards.team1 / (game.stats.redCards.team1 + game.stats.redCards.team2 || 1)) * 100">
+        </mat-progress-bar>
+        <mat-progress-bar 
+          class="team2-bar" 
+          color="accent" 
+          mode="determinate" 
+          [value]="(game.stats.redCards.team2 / (game.stats.redCards.team1 + game.stats.redCards.team2 || 1)) * 100">
+        </mat-progress-bar>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="closeDialog()">Close</button>
+</mat-dialog-actions>

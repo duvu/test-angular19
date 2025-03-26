@@ -1,0 +1,56 @@
+<mat-card class="game-card" (click)="onGameClick()">
+  <mat-card-header>
+    <mat-card-subtitle class="game-header">
+      <mat-chip [color]="getStatusColor()" selected>
+        {{ game.status === 'live' ? 'LIVE' : game.status === 'completed' ? 'COMPLETED' : 'SCHEDULED' }}
+      </mat-chip>
+      <span class="game-date">
+        {{ game.date | date:'MMM d, y • h:mm a' }}
+      </span>
+    </mat-card-subtitle>
+  </mat-card-header>
+  
+  <mat-card-content>
+    <div class="teams-container">
+      <div class="team-row">
+        <div class="team-info">
+          <img 
+            [src]="getTeam1LogoUrl()" 
+            [alt]="game.team1.name + ' logo'" 
+            class="team-logo team1"
+            (error)="handleImageError($event)"
+          >
+          <div class="team-name">{{ game.team1.name }}</div>
+        </div>
+        <div class="team-score" [ngClass]="{'winner': game.team1.score > game.team2.score && game.status === 'completed'}">
+          {{ game.team1.score }}
+        </div>
+      </div>
+      
+      <div class="team-row">
+        <div class="team-info">
+          <img 
+            [src]="getTeam2LogoUrl()" 
+            [alt]="game.team2.name + ' logo'" 
+            class="team-logo team2"
+            (error)="handleImageError($event)"
+          >
+          <div class="team-name">{{ game.team2.name }}</div>
+        </div>
+        <div class="team-score" [ngClass]="{'winner': game.team2.score > game.team1.score && game.status === 'completed'}">
+          {{ game.team2.score }}
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+  
+  <mat-card-actions>
+    <div class="venue">
+      <mat-icon>place</mat-icon>
+      {{ game.venue }}
+    </div>
+    <button mat-raised-button color="primary" class="details-button">
+      Details <mat-icon>arrow_forward</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>
